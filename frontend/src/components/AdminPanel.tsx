@@ -34,7 +34,7 @@ const AdminPanel: React.FC = () => {
       }
 
       // Alterado para o novo endpoint de listagem de usuários
-      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users-list}`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL}/api/admin/users-list`, { // Alterado para rota relativa
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
         },
@@ -74,7 +74,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users}`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL}/api/admin/users`, { // Alterado para rota relativa
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users/${userId}/role}`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL}/api/admin/users/${userId}/role`, { // Alterado para rota relativa
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users/${userId}}`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL}/api/admin/users/${userId}`, { // Alterado para rota relativa
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
