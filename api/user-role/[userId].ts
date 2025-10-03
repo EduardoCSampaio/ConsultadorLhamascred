@@ -1,5 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../lib/src/supabaseClient'; // ADICIONE ESTA LINHA
+import { supabase } from '../lib/supabaseClient'; // CORRIGIDO O CAMINHO
+import { protect } from '../lib/authMiddleware'; // CORRIGIDO O CAMINHO
+import { authorize } from '../lib/authorizationMiddleware'; // CORRIGIDO O CAMINHO
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
@@ -11,6 +13,15 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   if (!userId || typeof userId !== 'string') {
     return res.status(400).json({ error: 'User ID is required' });
   }
+
+  // Adaptação do middleware para Vercel Functions
+  // A função protect agora retorna uma resposta se falhar, caso contrário, continua
+  const authResult = await protect(req, res);
+  if (authResult) return authResult; // Se protect retornou uma resposta de erro, pare aqui
+
+  // A função authorize agora retorna uma resposta se falhar, caso contrário, continua
+  const authzResult = await authorize('admin')(req, res); // Exemplo: requer role 'admin'
+  if (authzResult) return authzResult; // Se authorize retornou uma resposta de erro, pare aqui
 
   try {
     const { data: profile, error } = await supabase

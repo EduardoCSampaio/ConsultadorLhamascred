@@ -1,37 +1,38 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '@/lib/supabaseClient'; // Alterado para usar o alias de caminho
+import { supabase } from '../../lib/supabaseClient'; // CORRIGIDO O CAMINHO
+import { protect } from '../../lib/authMiddleware'; // ADICIONADO
+import { authorize } from '../../lib/authorizationMiddleware'; // ADICIONADO
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  // A autenticação e autorização serão tratadas aqui ou por um middleware Vercel
-  // Por simplicidade inicial, vamos assumir que o token já foi validado
-  // e que o usuário é admin (isso será refinado com um middleware Vercel)
+  // Adaptação do middleware para Vercel Functions
+  const authResult = await protect(req, res);
+  if (authResult) return authResult;
+
+  const authzResult = await authorize('admin')(req, res);
+  if (authzResult) return authzResult;
 
   try {
-    const { data: profiles, error: profilesError } = await supabase
-      .from('profiles')
-      .select('id, username, role');
+    const { data: users, error } = await supabase.from('profiles').select('id, email, role');
 
-    if (profilesError) {
-      console.error('Supabase Profiles Error:', profilesError);
-      return res.status(500).json({ error: profilesError.message });
+    if (error) {
+      console.error('Error fetching users:', error);
+      return res.status(500).json({ error: 'Failed to fetch users' });
     }
 
-    const usersWithEmails = await Promise.all(profiles.map(async (profile) => {
-      const { data: userAuth, error: authError } = await supabase.auth.admin.getUserById(profile.id);
-      if (authError) {
-        console.error("Error fetching auth user for profile:", profile.id, authError);
-        return { ...profile, email: 'N/A' };
-      }
-      return { ...profile, email: userAuth?.user?.email || 'N/A' };
+    // CORRIGIDO: Tipagem explícita para 'profile'
+    const formattedUsers = users.map((profile: { id: string; email: string; role: string }) => ({
+      id: profile.id,
+      email: profile.email,
+      role: profile.role,
     }));
 
-    return res.status(200).json(usersWithEmails);
+    return res.status(200).json(formattedUsers);
   } catch (err: any) {
-    console.error('Server Error listing users:', err);
+    console.error('Server Error fetching users:', err);
     return res.status(500).json({ error: err.message || 'Internal server error' });
   }
 }

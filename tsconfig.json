@@ -1,4 +1,3 @@
-// filepath: tsconfig.json
 {
   "compilerOptions": {
     "target": "ESNext",
@@ -6,20 +5,17 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": true, // Mude para true para melhor compatibilidade com módulos
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "bundler", // Ou "node" se tiver problemas
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".", // MUITO IMPORTANTE: Define a base para resolução de módulos
-    "paths": {
-      "@/lib/*": ["backend/src/*"] // Define o alias para seus arquivos compartilhados
-    }
+    "baseUrl": "."
   },
-  "include": ["frontend/src", "api", "backend/src"], // Inclui todas as pastas com código TypeScript
+  "include": ["frontend/src", "api"]
 }
