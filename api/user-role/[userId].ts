@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../lib/supabaseClient'; // CORRIGIDO O CAMINHO
-import { protect } from '../lib/authMiddleware'; // CORRIGIDO O CAMINHO
-import { authorize } from '../lib/authorizationMiddleware'; // CORRIGIDO O CAMINHO
+import { supabase } from '../../lib/supabaseClient'; // CORRIGIDO O CAMINHO
+import { protect } from '../../lib/authMiddleware'; // CORRIGIDO O CAMINHO
+import { authorize } from '../../lib/authorizationMiddleware'; // CORRIGIDO O CAMINHO
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {

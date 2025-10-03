@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "baseUrl": "."
   },
-  "include": ["frontend/src", "api"]
+  "include": ["frontend/src", "api", "lib"]
 }
