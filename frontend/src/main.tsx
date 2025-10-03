@@ -15,9 +15,6 @@ import Auth from './components/Auth';
 import { Link } from 'react-router-dom'; // Importar Link
 import AdminPanel from './components/AdminPanel'; // Importar AdminPanel
 
-
-const RENDER_BACKEND_URL = import.meta.env.VITE_RENDER_BACKEND_URL;
-
 const tabs = [
 	{ key: 'fgts-manual', label: 'Consulta Manual FGTS' },
 	{ key: 'fgts-lote', label: 'Consulta em Lote FGTS' },
