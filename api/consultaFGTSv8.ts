@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../backend/src/supabaseClient';
-import { getToken } from '../backend/src/tokenService';
-import { enviarConsulta } from '../backend/src/consultaService';
+import { supabase } from './lib/src/supabaseClient';
+import { getToken } from './lib/src/tokenService';
+import { enviarConsulta } from './lib/src/consultaService';
 
 // Armazenamento em memória para status/resultados das consultas por documentNumber
 const consultas: Record<string, { status: 'pendente' | 'finalizado', resultado?: any }> = {};

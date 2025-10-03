@@ -1,8 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../backend/src/supabaseClient'; // ADICIONE ESTA LINHA
-import { getToken } from '../backend/src/tokenService';
-import { extractDocumentNumbersFromExcel, buildResultExcel } from '../backend/src/excelUtils'; // ADICIONE ESTA LINHA
-import { enviarConsulta } from '../backend/src/consultaService';
+import { supabase } from './lib/src/supabaseClient'; // ADICIONE ESTA LINHA
+import { getToken } from './lib/src/tokenService';
+import { extractDocumentNumbersFromExcel, buildResultExcel } from './lib/src/excelUtils'; // ADICIONE ESTA LINHA
+import { enviarConsulta } from './lib/src/consultaService';
 import { randomUUID } from 'crypto';
 import { IncomingForm } from 'formidable';
 

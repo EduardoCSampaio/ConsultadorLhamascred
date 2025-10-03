@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../../backend/src/supabaseClient';
+import { supabase } from '../lib/src/supabaseClient';
 
 // Armazenamento em memória para lotes higienizados (simulado)
 const lotes: Record<string, {
