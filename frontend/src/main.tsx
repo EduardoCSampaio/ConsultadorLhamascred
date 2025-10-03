@@ -15,6 +15,8 @@ import Auth from './components/Auth';
 import { Link } from 'react-router-dom'; // Importar Link
 import AdminPanel from './components/AdminPanel'; // Importar AdminPanel
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+
 const tabs = [
 	{ key: 'fgts-manual', label: 'Consulta Manual FGTS' },
 	{ key: 'fgts-lote', label: 'Consulta em Lote FGTS' },
@@ -65,7 +67,7 @@ function useRelatorioModal() {
     } else {
       setData(null);
       setOpen(true);
-      fetch(`http://localhost:3001/consulta-status/${doc}`)
+      fetch(`${BACKEND_URL}/consulta-status/${doc}`)
         .then(r => r.json())
         .then(d => setData(d.resultado || d));
     }
@@ -103,7 +105,7 @@ const App = () => {
 					setLoading(false);
 					return;
 				}
-				const res = await fetch(`http://localhost:3001/consulta-status/${consultaId}`, {
+				const res = await fetch(`${BACKEND_URL}consulta-status/${consultaId}`, {
 					headers: { 'Authorization': `Bearer ${session.access_token}` }
 				});
 				if (res.status === 401) {
@@ -178,7 +180,7 @@ const App = () => {
 			}
 
 			try {
-					const res = await fetch('http://localhost:3001/consultaFGTSv8', {
+					const res = await fetch('${BACKEND_URL}/consultaFGTSv8', {
 						method: 'POST',
 						headers: { 
 							'Content-Type': 'application/json',
@@ -324,7 +326,7 @@ function MainApp(props: any) {
 			const formData = new FormData();
 			formData.append('file', excelFile);
 			formData.append('provider', provider);
-			const res = await fetch('http://localhost:3001/consulta-excel', {
+			const res = await fetch('${BACKEND_URL}/consulta-excel', {
 				method: 'POST',
 				headers: {
 					'Authorization': `Bearer ${session.access_token}`
@@ -636,7 +638,7 @@ function LotesHigienizadosModal({ open, onClose }: { open: boolean, onClose: () 
 					setLoading(false);
 					return;
 				}
-				const res = await fetch('http://localhost:3001/lotes-higienizados', {
+				const res = await fetch('${BACKEND_URL}/lotes-higienizados', {
 					headers: { 'Authorization': `Bearer ${session.access_token}` }
 				});
 				if (res.status === 401) {
