@@ -68,7 +68,7 @@ function useRelatorioModal() {
     } else {
       setData(null);
       setOpen(true);
-      fetch(`${RENDER_BACKEND_URL}/consulta-status/${doc}`)
+      fetch('/api/consulta-status/${doc}')
         .then(r => r.json())
         .then(d => setData(d.resultado || d));
     }
@@ -106,7 +106,7 @@ const App = () => {
 					setLoading(false);
 					return;
 				}
-				const res = await fetch(`${RENDER_BACKEND_URL}consulta-status/${consultaId}`, {
+				const res = await fetch('/api/consulta-status/${consultaId}', {
 					headers: { 'Authorization': `Bearer ${session.access_token}` }
 				});
 				if (res.status === 401) {
@@ -146,7 +146,7 @@ const App = () => {
 			if (session?.user) {
 				// Alterado para buscar a role do backend
 				try {
-					const res = await fetch(`https://consultadorlhamascred.onrender.com/api/user-role/${session.user.id}`, { // Alterado para rota relativa
+					const res = await fetch(`/api/user-role/${session.user.id}`, { // Alterado para rota relativa
 						headers: { 'Authorization': `Bearer ${session.access_token}` }
 					});
 					if (!res.ok) {
@@ -181,7 +181,7 @@ const App = () => {
 			}
 
 			try {
-					const res = await fetch(`${RENDER_BACKEND_URL}/consultaFGTSv8`, {
+					const res = await fetch('/api/consultaFGTSv8', {
 						method: 'POST',
 						headers: { 
 							'Content-Type': 'application/json',
@@ -327,7 +327,7 @@ function MainApp(props: any) {
 			const formData = new FormData();
 			formData.append('file', excelFile);
 			formData.append('provider', provider);
-			const res = await fetch(`${RENDER_BACKEND_URL}/consulta-excel`, {
+			const res = await fetch('/api/consulta-excel', {
 				method: 'POST',
 				headers: {
 					'Authorization': `Bearer ${session.access_token}`
@@ -639,7 +639,7 @@ function LotesHigienizadosModal({ open, onClose }: { open: boolean, onClose: () 
 					setLoading(false);
 					return;
 				}
-				const res = await fetch(`${RENDER_BACKEND_URL}/lotes-higienizados`, {
+				const res = await fetch('/api/lotes-higienizados', {
 					headers: { 'Authorization': `Bearer ${session.access_token}` }
 				});
 				if (res.status === 401) {
