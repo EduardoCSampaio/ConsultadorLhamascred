@@ -22,5 +22,4 @@
     }
   },
   "include": ["frontend/src", "api", "backend/src"], // Inclui todas as pastas com código TypeScript
-  "references": [{ "path": "./tsconfig.node.json" }] // Se você tiver um tsconfig.node.json
 }
