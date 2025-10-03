@@ -1,16 +1,26 @@
+// filepath: tsconfig.json
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "esModuleInterop": true, // Mude para true para melhor compatibilidade com módulos
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler", // Ou "node" se tiver problemas
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".", // MUITO IMPORTANTE: Define a base para resolução de módulos
     "paths": {
-      "@/lib/*": ["backend/src/*"]
+      "@/lib/*": ["backend/src/*"] // Define o alias para seus arquivos compartilhados
     }
   },
-  "include": ["api/**/*.ts", "backend/src/**/*.ts"],
-  "exclude": ["node_modules", "frontend"]
+  "include": ["frontend/src", "api", "backend/src"], // Inclui todas as pastas com código TypeScript
+  "references": [{ "path": "./tsconfig.node.json" }] // Se você tiver um tsconfig.node.json
 }
