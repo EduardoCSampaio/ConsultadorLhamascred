@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../../lib/supabaseClient'; // CORRIGIDO O CAMINHO
-import { protect } from '../../lib/authMiddleware'; // ADICIONADO
-import { authorize } from '../../lib/authorizationMiddleware'; // ADICIONADO
+import { supabase } from '../lib/supabaseClient'; // CORRIGIDO O CAMINHO
+import { protect } from '../lib/authMiddleware'; // ADICIONADO
+import { authorize } from '../lib/authorizationMiddleware'; // ADICIONADO
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   // Adaptação do middleware para Vercel Functions
