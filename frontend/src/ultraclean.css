@@ -1,0 +1,252 @@
+/*
+ * Ultraclean UI - Minimalista, claro, sóbrio, responsivo
+ * Paleta: #f7f7f9, #e5e7eb, #222, #666, #fff, azul sutil para destaque
+ * Sem sombras, sem bordas pesadas, sem cores gritantes
+ */
+
+body {
+  margin: 0;
+  background: #f7f7f9;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: #222;
+}
+
+.modern-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7f9;
+}
+
+.modern-sidebar {
+  width: 220px;
+  background: #fff;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-right: 1px solid #e5e7eb;
+}
+
+.modern-logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 2rem 1.2rem 1.2rem 1.5rem;
+  color: #222;
+  background: none;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.modern-sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modern-sidebar nav ul li {
+  padding: 0.85rem 1.5rem 0.85rem 1.5rem;
+  cursor: pointer;
+  font-size: 1.01rem;
+  display: flex;
+  align-items: center;
+  border-left: 3px solid transparent;
+  border-radius: 5px 0 0 5px;
+  margin-bottom: 0.1rem;
+  font-weight: 500;
+  color: #444;
+  background: none;
+  transition: background 0.12s, color 0.12s, border-left 0.12s;
+}
+
+.modern-sidebar nav ul li.active, .modern-sidebar nav ul li:hover {
+  background: #f0f1f3;
+  color: #2563eb;
+  border-left: 3px solid #2563eb;
+  font-weight: 700;
+}
+
+.modern-sidebar nav ul li span[role="img"] {
+  margin-right: 0.7rem;
+  font-size: 1.1em;
+}
+
+.modern-badge {
+  background: #e5e7eb;
+  color: #2563eb;
+  border-radius: 6px;
+  padding: 0.13rem 0.5rem;
+  font-size: 0.78rem;
+  margin-left: 0.7rem;
+  font-weight: 600;
+}
+
+.modern-footer {
+  color: #888;
+  margin-top: auto;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  text-align: left;
+  padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.modern-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f7f7f9;
+  padding: 2.5rem 0 0 0;
+}
+
+.modern-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: none;
+  padding: 2rem 2rem 2rem 2rem;
+  color: #222;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+  min-width: 320px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.modern-field label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
+  color: #222;
+  letter-spacing: 0.3px;
+  font-size: 1.01rem;
+}
+
+.modern-field input,
+.modern-field select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-size: 1.04rem;
+  background: #f7f7f9;
+  margin-top: 0.2rem;
+  transition: border 0.12s, box-shadow 0.12s;
+  outline: none;
+  color: #222;
+}
+
+.modern-field input:focus,
+.modern-field select:focus {
+  border: 1px solid #2563eb;
+  box-shadow: 0 0 0 2px #2563eb22;
+}
+
+.modern-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 2.2rem;
+  font-size: 1.09rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, transform 0.10s;
+  box-shadow: none;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-self: flex-end;
+  letter-spacing: 0.3px;
+}
+
+.modern-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modern-btn:not(:disabled):hover {
+  background: #1d4ed8;
+  color: #fff;
+  transform: translateY(-1px) scale(1.01);
+}
+
+.modern-error {
+  color: #fff;
+  background: #ef4444;
+  border-radius: 7px;
+  padding: 0.8rem 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+  border: none;
+  box-shadow: none;
+}
+
+.modern-waiting {
+  color: #2563eb;
+  background: #e5e7eb;
+  border-radius: 7px;
+  padding: 0.8rem 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+  border: none;
+  box-shadow: none;
+}
+
+.modern-result {
+  background: #f7f7f9;
+  border-radius: 8px;
+  padding: 1.1rem 1rem;
+  margin-top: 1.1rem;
+  color: #222;
+  font-size: 1.08rem;
+  box-shadow: none;
+  border: 1px solid #e5e7eb;
+}
+
+.modern-result h3 {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+  color: #2563eb;
+  letter-spacing: 0.3px;
+  font-size: 1.09rem;
+}
+
+@media (max-width: 900px) {
+  .modern-layout {
+    flex-direction: column;
+  }
+  .modern-sidebar {
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    min-height: 64px;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .modern-main {
+    min-height: unset;
+    padding: 2rem 0.5rem;
+  }
+  .modern-form {
+    min-width: unset;
+    max-width: 100vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .modern-card {
+    min-width: unset;
+    max-width: 100vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+}

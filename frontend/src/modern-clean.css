@@ -1,0 +1,268 @@
+/*
+ * CSS moderno, limpo e responsivo para sistema de consultas FGTS/CLT
+ * Glassmorphism, cores #dfdfdf, #e0af45, #000000, responsividade e UX premium
+ */
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #ece9e6 0%, #dfdfdf 100%);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #222;
+}
+
+.modern-layout {
+  display: flex;
+  min-height: 100vh;
+  background: none;
+}
+
+.modern-sidebar {
+  width: 270px;
+  background: rgba(20, 20, 20, 0.85);
+  color: #dfdfdf;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 2px 0 32px 0 rgba(0,0,0,0.18);
+  z-index: 2;
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
+  backdrop-filter: blur(8px);
+  border-right: 2px solid #e0af45;
+}
+
+.modern-logo {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  padding: 1.3rem 0.5rem 1.3rem 0.5rem;
+  background: rgba(255,255,255,0.85);
+  color: #000000;
+  border-radius: 22px;
+  margin: 2.2rem 1rem 2.5rem 1rem;
+  box-shadow: 0 4px 32px 0 #e0af4533;
+  text-shadow: 0 2px 8px #e0af4533;
+  width: 90%;
+  text-align: center;
+  border: 2px solid #e0af45;
+}
+
+.modern-sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modern-sidebar nav ul li {
+  padding: 1.1rem 2rem;
+  cursor: pointer;
+  font-size: 1.18rem;
+  display: flex;
+  align-items: center;
+  transition: background 0.18s, color 0.18s, border-left 0.18s;
+  border-left: 4px solid transparent;
+  border-radius: 12px 0 0 12px;
+  margin-bottom: 0.2rem;
+  position: relative;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.modern-sidebar nav ul li.active, .modern-sidebar nav ul li:hover {
+  background: linear-gradient(90deg, #e0af45 0%, #fffbe7 100%);
+  color: #000;
+  border-left: 4px solid #e0af45;
+  font-weight: 700;
+  box-shadow: 0 2px 12px 0 #e0af4533;
+}
+
+.modern-sidebar nav ul li span[role="img"] {
+  margin-right: 0.7rem;
+  font-size: 1.3em;
+}
+
+.modern-badge {
+  background: #fffde7;
+  color: #bfa600;
+  border-radius: 8px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.85rem;
+  margin-left: 0.7rem;
+  font-weight: 600;
+  box-shadow: 0 1px 4px 0 rgba(191,166,0,0.08);
+}
+
+.modern-footer {
+  color: #e0af45;
+  margin-top: 2rem;
+  font-size: 1.05rem;
+  opacity: 0.8;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.modern-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: none;
+}
+
+.modern-card {
+  background: rgba(255,255,255,0.97);
+  border-radius: 28px;
+  box-shadow: 0 8px 48px 0 #e0af4533, 0 2px 8px 0 #0001;
+  padding: 2.7rem 2.2rem 2.2rem 2.2rem;
+  max-width: 480px;
+  width: 100%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  animation: fadein 0.5s;
+  border: 2px solid #e0af45;
+}
+
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modern-field label {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  display: block;
+  color: #000000;
+  letter-spacing: 0.7px;
+  font-size: 1.08rem;
+}
+
+.modern-field input,
+.modern-field select {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  border: 2px solid #e0af45;
+  font-size: 1.11rem;
+  background: #f7fafc;
+  margin-top: 0.2rem;
+  transition: border 0.18s, box-shadow 0.18s;
+  outline: none;
+  color: #222;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.modern-field input:focus,
+.modern-field select:focus {
+  border: 2px solid #000000;
+  box-shadow: 0 0 0 2px #e0af4533;
+}
+
+.modern-btn {
+  background: linear-gradient(90deg, #e0af45 0%, #fffbe7 100%);
+  color: #000000;
+  border: none;
+  border-radius: 14px;
+  padding: 1.1rem 2.5rem;
+  font-size: 1.18rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s, transform 0.13s;
+  box-shadow: 0 4px 18px 0 #e0af4533;
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+  align-self: flex-end;
+  letter-spacing: 0.7px;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.modern-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modern-btn:not(:disabled):hover {
+  background: linear-gradient(90deg, #000000 0%, #e0af45 100%);
+  color: #fff;
+  box-shadow: 0 8px 32px 0 #e0af4533;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.modern-error {
+  color: #fff;
+  background: linear-gradient(90deg, #e57373 0%, #ffb199 100%);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-top: 1.1rem;
+  text-align: center;
+  font-weight: 600;
+  border: 1.5px solid #e57373;
+  box-shadow: 0 2px 12px 0 rgba(229,115,115,0.10);
+}
+
+.modern-waiting {
+  color: #bfa600;
+  background: #fffde7;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-top: 1.1rem;
+  text-align: center;
+  font-weight: 600;
+  border: 1.5px solid #e0af45;
+  box-shadow: 0 2px 12px 0 rgba(191,166,0,0.10);
+}
+
+.modern-result {
+  background: #dfdfdf;
+  border-radius: 16px;
+  padding: 1.5rem 1.3rem;
+  margin-top: 1.3rem;
+  color: #000000;
+  font-size: 1.13rem;
+  box-shadow: 0 4px 24px 0 rgba(224,175,69,0.13);
+  border: 1.5px solid #e0af45;
+}
+
+.modern-result h3 {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+  color: #e0af45;
+  letter-spacing: 0.5px;
+  font-size: 1.18rem;
+}
+
+@media (max-width: 900px) {
+  .modern-layout {
+    flex-direction: column;
+  }
+  .modern-sidebar {
+    width: 100%;
+    border-radius: 0 0 32px 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    min-height: 64px;
+    box-shadow: 0 2px 24px 0 rgba(0,0,0,0.13);
+    border-right: none;
+    border-bottom: 2px solid #e0af45;
+    backdrop-filter: blur(6px);
+  }
+  .modern-main {
+    min-height: unset;
+    padding: 2rem 0.5rem;
+  }
+  .modern-form {
+    min-width: unset;
+    max-width: 100vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
