@@ -146,7 +146,7 @@ const App = () => {
 			if (session?.user) {
 				// Alterado para buscar a role do backend
 				try {
-					const res = await fetch(`/api/user-role/${session.user.id}`, { // Alterado para rota relativa
+					const res = await fetch(`https://consultadorlhamascred.onrender.com/api/user-role/${session.user.id}`, { // Alterado para rota relativa
 						headers: { 'Authorization': `Bearer ${session.access_token}` }
 					});
 					if (!res.ok) {
