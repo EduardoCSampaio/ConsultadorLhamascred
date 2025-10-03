@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../../../backend/src/supabaseClient'; // Corrigido o caminho
+import { supabase } from '@/lib/supabaseClient'; // Mude para esta linha
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
