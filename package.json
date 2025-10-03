@@ -2,11 +2,11 @@
   "name": "sistema-consultas-root",
   "version": "1.0.0",
   "private": true,
-   "scripts": {
-    "dev": "vite --root frontend",
-    "build": "tsc && vite build --root frontend",
+  "scripts": {
+    "dev": "cd frontend && vite", // Executa vite na pasta frontend
+    "build": "tsc && cd frontend && vite build", // Executa tsc na raiz e depois vite build na pasta frontend
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview --root frontend"
+    "preview": "cd frontend && vite preview" // Executa vite preview na pasta frontend
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.58.0",
@@ -22,7 +22,7 @@
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
-    "@types/formidable": "^3.0.0", 
+    "@types/formidable": "^3.0.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
