@@ -163,7 +163,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`${RENDER_BACKEND_URL}/api/admin/users/${userId}`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL}/api/admin/users/${userId}}`, { // Alterado para rota relativa
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
