@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { FaSpinner, FaCheckCircle, FaTimesCircle, FaUserCircle } from 'react-icons/fa';
 
+const RENDER_BACKEND_URL = import.meta.env.VITE_RENDER_BACKEND_URL;
 interface UserProfile {
   id: string;
   email: string;
@@ -33,7 +34,7 @@ const AdminPanel: React.FC = () => {
       }
 
       // Alterado para o novo endpoint de listagem de usuários
-      const res = await fetch('/api/admin/users-list', { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users-list}`, { // Alterado para rota relativa
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
         },
@@ -73,7 +74,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch('/api/admin/users', { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users}`, { // Alterado para rota relativa
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -126,7 +127,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`/api/admin/users/${userId}/role`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users/${userId}/role}`, { // Alterado para rota relativa
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +163,7 @@ const AdminPanel: React.FC = () => {
         return;
       }
 
-      const res = await fetch(`/api/admin/users/${userId}`, { // Alterado para rota relativa
+      const res = await fetch(`${RENDER_BACKEND_URL/api/admin/users/${userId}}`, { // Alterado para rota relativa
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
