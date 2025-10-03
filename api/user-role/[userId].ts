@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '@/lib/supabaseClient'; // Mude para esta linha
+import { supabase } from '../../backend/src/supabaseClient'; // ADICIONE ESTA LINHA
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
