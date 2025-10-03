@@ -1,4 +1,3 @@
-// filepath: c:\Users\Eduardo\Desktop\SistemaConsultas\tsconfig.json
 {
   "compilerOptions": {
     "target": "ESNext",
@@ -16,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0" // ADICIONE ESTA LINHA
   },
-  "include": ["frontend/src", "api", "lib"] // ADICIONE "lib" AQUI
+  "include": ["frontend/src", "api", "lib"]
 }
