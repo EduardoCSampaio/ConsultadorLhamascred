@@ -22,7 +22,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://consultador-lhamascred-3fo3.vercel.app/'], // Adicione a URL do seu frontend no Vercel
+  origin: ['http://localhost:3000', 'https://consultador-lhamascred-3fo3.vercel.app'], // Adicione a URL do seu frontend no Vercel
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
