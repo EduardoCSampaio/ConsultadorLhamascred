@@ -16,7 +16,7 @@ export async function enviarConsulta(documento: string): Promise<any> {
       `${CONSULTA_API_BASE_URL}/fgts/balance`, // Usar a base URL e o path da documentação
       {
         documentNumber: documento,
-        provider: "BMS" // Conforme a documentação
+        provider: "CARTOS" // Conforme a documentação
       },
       {
         headers: {
