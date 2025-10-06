@@ -1,8 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../lib/supabaseClient'; // CAMINHO CORRIGIDO
-import { enviarConsulta } from '../lib/consultaService'; // CAMINHO CORRIGIDO
-import { protect } from '../lib/authMiddleware'; // ADICIONADO
-import { authorize } from '../lib/authorizationMiddleware'; // ADICIONADO
+import { supabase } from '../lib/supabaseClient.js'; // CAMINHO CORRIGIDO
+import { enviarConsulta } from '../lib/consultaService.js'; // CAMINHO CORRIGIDO
+import { protect } from '../lib/authMiddleware.js'; // ADICIONADO
+import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {

@@ -1,8 +1,8 @@
 // filepath: c:\Users\Eduardo\Desktop\SistemaConsultas\api\lotes\[loteId].ts
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { supabase } from '../../lib/supabaseClient'; // Ajuste o caminho conforme sua estrutura
-import { protect } from '../../lib/authMiddleware'; // Ajuste o caminho
-import { authorize } from '../../lib/authorizationMiddleware'; // Ajuste o caminho
+import { supabase } from '../../lib/supabaseClient.js'; // Ajuste o caminho conforme sua estrutura
+import { protect } from '../../lib/authMiddleware.js'; // Ajuste o caminho
+import { authorize } from '../../lib/authorizationMiddleware.js'; // Ajuste o caminho
 
 export default async function (req: VercelRequest, res: VercelResponse) {
   const { loteId } = req.query;
