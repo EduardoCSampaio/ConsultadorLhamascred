@@ -6,7 +6,7 @@ const CONSULTA_API_BASE_URL = process.env.CONSULTA_API_BASE_URL; // Nova variáv
 const ALLOWED_PROVIDERS = ["bms", "cartos", "qi"]; // Provedores permitidos
 
 
-export async function enviarConsulta(documento: string, provider: string): Promise<any> { // ADICIONE 'provider: string' AQUI
+export async function enviarConsulta(documento: string, provider: string): Promise<any> {
   if (!CONSULTA_API_BASE_URL) {
     throw new Error('Variável de ambiente CONSULTA_API_BASE_URL não configurada.');
   }
@@ -22,7 +22,7 @@ export async function enviarConsulta(documento: string, provider: string): Promi
       `${CONSULTA_API_BASE_URL}/fgts/balance`,
       {
         documentNumber: documento,
-        provider: provider // <--- AGORA USA O PARÂMETRO 'provider'
+        provider: provider
       },
       {
         headers: {
