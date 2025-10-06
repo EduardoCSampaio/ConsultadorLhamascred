@@ -1,18 +1,20 @@
 import axios from 'axios';
 import 'dotenv/config';
 
-const TOKEN_API_URL = process.env.TOKEN_API_URL;
-const TOKEN_API_CLIENT_ID = process.env.TOKEN_API_CLIENT_ID;
-const TOKEN_API_USERNAME = process.env.TOKEN_API_USERNAME; // Nova variável
-const TOKEN_API_PASSWORD = process.env.TOKEN_API_PASSWORD; // Nova variável
-const TOKEN_API_AUDIENCE = process.env.TOKEN_API_AUDIENCE; // Nova variável
-const TOKEN_API_SCOPE = process.env.TOKEN_API_SCOPE; // Nova variável
+// Corrigido para usar os nomes de variáveis de ambiente com prefixo V8_
+const V8_AUTH_URL = process.env.V8_AUTH_URL;
+const V8_CLIENT_ID = process.env.V8_CLIENT_ID;
+const V8_USERNAME = process.env.V8_USERNAME;
+const V8_PASSWORD = process.env.V8_PASSWORD;
+const V8_AUDIENCE = process.env.V8_AUDIENCE;
+const V8_SCOPE = process.env.V8_SCOPE;
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
 
 export async function getToken(): Promise<string> {
-  if (!TOKEN_API_URL || !TOKEN_API_CLIENT_ID || !TOKEN_API_USERNAME || !TOKEN_API_PASSWORD || !TOKEN_API_AUDIENCE || !TOKEN_API_SCOPE) {
-    throw new Error('Variáveis de ambiente da API de token não configuradas corretamente.');
+  // Atualizado para verificar as novas variáveis de ambiente
+  if (!V8_AUTH_URL || !V8_CLIENT_ID || !V8_USERNAME || !V8_PASSWORD || !V8_AUDIENCE || !V8_SCOPE) {
+    throw new Error('Variáveis de ambiente da API de token (V8_...) não configuradas corretamente.');
   }
 
   const now = Date.now();
@@ -23,18 +25,18 @@ export async function getToken(): Promise<string> {
 
   try {
     const response = await axios.post(
-      TOKEN_API_URL,
-      new URLSearchParams({ // Usar URLSearchParams para enviar dados como application/x-www-form-urlencoded
+      V8_AUTH_URL, // Usando a variável V8_AUTH_URL
+      new URLSearchParams({
         grant_type: 'password',
-        username: TOKEN_API_USERNAME,
-        password: TOKEN_API_PASSWORD,
-        audience: TOKEN_API_AUDIENCE,
-        scope: TOKEN_API_SCOPE,
-        client_id: TOKEN_API_CLIENT_ID,
+        username: V8_USERNAME, // Usando a variável V8_USERNAME
+        password: V8_PASSWORD, // Usando a variável V8_PASSWORD
+        audience: V8_AUDIENCE, // Usando a variável V8_AUDIENCE
+        scope: V8_SCOPE,       // Usando a variável V8_SCOPE
+        client_id: V8_CLIENT_ID, // Usando a variável V8_CLIENT_ID
       }).toString(),
       {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded', // Mudar o Content-Type
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       }
     );
@@ -42,7 +44,7 @@ export async function getToken(): Promise<string> {
     const { access_token, expires_in } = response.data;
     cachedToken = {
       token: access_token,
-      expiresAt: now + expires_in * 1000, // expires_in geralmente em segundos
+      expiresAt: now + expires_in * 1000,
     };
     return access_token;
   } catch (error: any) {

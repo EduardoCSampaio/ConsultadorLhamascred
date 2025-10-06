@@ -4,9 +4,10 @@ import { readFileSync } from 'fs';
 import { supabase } from '../lib/supabaseClient.js'; // CORRIGIDO O CAMINHO
 import { extractDocumentNumbersFromExcel, buildResultExcel } from '../lib/excelUtils.js'; // CORRIGIDO O CAMINHO
 import { enviarConsulta } from '../lib/consultaService.js'; // CORRIGIDO O CAMINHO
-import { protect } from '../lib/authMiddleware.js'; // ADICIONADO
-import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO
+import { protect } from '../lib/authMiddleware.js'; // ADICIONADO (com .js)
+import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO (com .js)
 
+// Defina os provedores permitidos para validação
 const ALLOWED_PROVIDERS = ["bms", "qi", "cartos"];
 
 export const config = {
@@ -20,7 +21,6 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  // Adaptação do middleware para Vercel Functions
   const authResult = await protect(req, res);
   if (authResult) return authResult;
 
@@ -32,13 +32,15 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   try {
     const [fields, files] = await form.parse(req);
     const file = files.file?.[0];
-    const provider = fields.provider?.[0];
+    const provider = fields.provider?.[0]; // <--- OBTENHA 'provider' DOS FIELDS DO FORMULÁRIO
 
     if (!file) {
       return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
     }
+
+    // Validação do provider recebido do frontend
     if (!provider || !ALLOWED_PROVIDERS.includes(provider)) {
-      return res.status(400).json({ error: `provider inválido ou não fornecido. Valores permitidos: ${ALLOWED_PROVIDERS.join(', ')}` });
+      return res.status(400).json({ error: `Provedor inválido ou ausente. Os valores permitidos são: ${ALLOWED_PROVIDERS.join(', ')}` });
     }
 
     const buffer = readFileSync(file.filepath);
@@ -48,7 +50,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Nenhum número de documento encontrado no arquivo.' });
     }
 
-    const userId = (req as any).user?.id; // Assumindo que o protect anexa o user
+    const userId = (req as any).user?.id;
     if (!userId) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
@@ -64,7 +66,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         nome_arquivo: file.originalFilename || 'arquivo_excel',
         status: 'processando',
         data_inicio: new Date().toISOString(),
-        provider_selecionado: provider,
+        provider_selecionado: provider, // <--- Salva o provider escolhido no lote
       })
       .select()
       .single();
@@ -74,8 +76,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: 'Erro ao iniciar o processamento do lote.' });
     }
 
-    // Processamento assíncrono
-    processBatch(lote.id, documentNumbers, userId, provider);
+    // Processamento assíncrono - PASSE O 'provider' PARA processBatch
+    processBatch(lote.id, documentNumbers, userId, provider); // <--- PASSE O 'provider' AQUI
 
     return res.status(202).json({
       message: 'Processamento do lote iniciado.',
@@ -87,11 +89,12 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
 }
 
-async function processBatch(loteId: string, documentNumbers: string[], userId: string, provider: string) {
+// A função processBatch também precisa aceitar o parâmetro 'provider'
+async function processBatch(loteId: string, documentNumbers: string[], userId: string, provider: string) { // <--- ADICIONE 'provider: string' AQUI
   const results = [];
   for (const doc of documentNumbers) {
     try {
-      const consultaResult = await enviarConsulta(doc, provider);
+      const consultaResult = await enviarConsulta(doc, provider); // <--- PASSE O 'provider' AQUI
       results.push({ documento: doc, resultado: consultaResult });
     } catch (err) {
       console.error(`Erro ao consultar documento ${doc}:`, err);

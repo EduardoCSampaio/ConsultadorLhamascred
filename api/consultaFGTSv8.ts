@@ -1,9 +1,10 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { supabase } from '../lib/supabaseClient.js'; // CAMINHO CORRIGIDO
 import { enviarConsulta } from '../lib/consultaService.js'; // CAMINHO CORRIGIDO
-import { protect } from '../lib/authMiddleware.js'; // ADICIONADO
-import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO
+import { protect } from '../lib/authMiddleware.js'; // ADICIONADO (com .js)
+import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO (com .js)
 
+// Defina os provedores permitidos para validação (pode ser importado de consultaService.js se preferir)
 const ALLOWED_PROVIDERS = ["bms", "qi", "cartos"];
 
 export default async function (req: VercelRequest, res: VercelResponse) {
@@ -13,25 +14,27 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
   // 1. Aplicar middlewares de autenticação e autorização
   const authResult = await protect(req, res);
-  if (authResult) return authResult; // Se a autenticação falhar, retorna a resposta do middleware
+  if (authResult) return authResult;
 
-  // Exemplo: Apenas usuários 'admin' ou 'user' podem usar esta consulta
   const authzResult = await authorize('admin')(req, res); // Ou 'user', dependendo da sua regra
-  if (authzResult) return authzResult; // Se a autorização falhar, retorna a resposta do middleware
+  if (authzResult) return authzResult;
 
-  const { documentNumber, provider } = req.body; // 'provider' não é mais necessário aqui, pois está fixo em consultaService.ts
+  const { documentNumber, provider } = req.body; // <--- OBTENHA 'provider' DO CORPO DA REQUISIÇÃO
+
   if (!documentNumber) {
     return res.status(400).json({ error: 'documentNumber é obrigatório' });
   }
-  if (provider && !ALLOWED_PROVIDERS.includes(provider)) {
-    return res.status(400).json({ error: `provider inválido. Valores permitidos: ${ALLOWED_PROVIDERS.join(', ')}` });
+
+  // Validação do provider recebido do frontend
+  if (!provider || !ALLOWED_PROVIDERS.includes(provider)) {
+    return res.status(400).json({ error: `Provedor inválido ou ausente. Os valores permitidos são: ${ALLOWED_PROVIDERS.join(', ')}` });
   }
 
   try {
-    // 2. Chamar enviarConsulta corretamente com apenas o documentNumber
-    const resultado = await enviarConsulta(documentNumber, provider);
+    // 2. Chamar enviarConsulta corretamente com o documentNumber E o provider
+    const resultado = await enviarConsulta(documentNumber, provider); // <--- PASSE O 'provider' AQUI
 
-    // 3. Lógica de resposta simplificada, sem cache em memória ou polling
+    // 3. Lógica de resposta simplificada
     if (resultado && resultado.balance !== undefined && resultado.balance !== null && resultado.balance !== '') {
       return res.json({ documentNumber, balance: resultado.balance });
     } else if (resultado?.errorMessage || resultado?.error) {
@@ -42,7 +45,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   } catch (err: any) {
     let errorMsg = 'Erro desconhecido ao processar a consulta.';
     if (err?.response?.data) {
-      if (typeof err.response.data === 'object' && err.response.data.message) { // Ajuste para 'message' se a API retornar assim
+      if (typeof err.response.data === 'object' && err.response.data.message) {
         errorMsg = err.response.data.message;
       } else if (typeof err.response.data === 'string') {
         errorMsg = err.response.data;

@@ -6,12 +6,12 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
+      "dest": "/frontend/dist/index.html"
     }
   ],
   "functions": {
     "api/**/*.ts": {
       "includeFiles": "lib/**"
     }
-}
+  }
 }
