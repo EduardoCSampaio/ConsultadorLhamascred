@@ -7,6 +7,8 @@ import { enviarConsulta } from '../lib/consultaService.js'; // CORRIGIDO O CAMIN
 import { protect } from '../lib/authMiddleware.js'; // ADICIONADO
 import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO
 
+const ALLOWED_PROVIDERS = ["bms", "qi", "cartos"];
+
 export const config = {
   api: {
     bodyParser: false,
@@ -30,9 +32,13 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   try {
     const [fields, files] = await form.parse(req);
     const file = files.file?.[0];
+    const provider = fields.provider?.[0];
 
     if (!file) {
       return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
+    }
+    if (!provider || !ALLOWED_PROVIDERS.includes(provider)) {
+      return res.status(400).json({ error: `provider inválido ou não fornecido. Valores permitidos: ${ALLOWED_PROVIDERS.join(', ')}` });
     }
 
     const buffer = readFileSync(file.filepath);
@@ -58,6 +64,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         nome_arquivo: file.originalFilename || 'arquivo_excel',
         status: 'processando',
         data_inicio: new Date().toISOString(),
+        provider_selecionado: provider,
       })
       .select()
       .single();
@@ -68,7 +75,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     }
 
     // Processamento assíncrono
-    processBatch(lote.id, documentNumbers, userId);
+    processBatch(lote.id, documentNumbers, userId, provider);
 
     return res.status(202).json({
       message: 'Processamento do lote iniciado.',
@@ -80,11 +87,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   }
 }
 
-async function processBatch(loteId: string, documentNumbers: string[], userId: string) {
+async function processBatch(loteId: string, documentNumbers: string[], userId: string, provider: string) {
   const results = [];
   for (const doc of documentNumbers) {
     try {
-      const consultaResult = await enviarConsulta(doc);
+      const consultaResult = await enviarConsulta(doc, provider);
       results.push({ documento: doc, resultado: consultaResult });
     } catch (err) {
       console.error(`Erro ao consultar documento ${doc}:`, err);

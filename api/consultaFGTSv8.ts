@@ -4,6 +4,8 @@ import { enviarConsulta } from '../lib/consultaService.js'; // CAMINHO CORRIGIDO
 import { protect } from '../lib/authMiddleware.js'; // ADICIONADO
 import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO
 
+const ALLOWED_PROVIDERS = ["bms", "qi", "cartos"];
+
 export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -17,14 +19,17 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   const authzResult = await authorize('admin')(req, res); // Ou 'user', dependendo da sua regra
   if (authzResult) return authzResult; // Se a autorização falhar, retorna a resposta do middleware
 
-  const { documentNumber } = req.body; // 'provider' não é mais necessário aqui, pois está fixo em consultaService.ts
+  const { documentNumber, provider } = req.body; // 'provider' não é mais necessário aqui, pois está fixo em consultaService.ts
   if (!documentNumber) {
     return res.status(400).json({ error: 'documentNumber é obrigatório' });
+  }
+  if (provider && !ALLOWED_PROVIDERS.includes(provider)) {
+    return res.status(400).json({ error: `provider inválido. Valores permitidos: ${ALLOWED_PROVIDERS.join(', ')}` });
   }
 
   try {
     // 2. Chamar enviarConsulta corretamente com apenas o documentNumber
-    const resultado = await enviarConsulta(documentNumber);
+    const resultado = await enviarConsulta(documentNumber, provider);
 
     // 3. Lógica de resposta simplificada, sem cache em memória ou polling
     if (resultado && resultado.balance !== undefined && resultado.balance !== null && resultado.balance !== '') {
