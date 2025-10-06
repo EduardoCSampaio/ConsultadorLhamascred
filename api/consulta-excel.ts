@@ -2,7 +2,7 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import formidable from 'formidable';
 import { readFileSync } from 'fs';
 import { supabase } from '../lib/supabaseClient.js'; // CORRIGIDO O CAMINHO
-import { extractDocumentNumbersFromExcel, buildResultExcel } from '../lib/excelUtils'; // CORRIGIDO O CAMINHO
+import { extractDocumentNumbersFromExcel, buildResultExcel } from '../lib/excelUtils.js'; // CORRIGIDO O CAMINHO
 import { enviarConsulta } from '../lib/consultaService.js'; // CORRIGIDO O CAMINHO
 import { protect } from '../lib/authMiddleware.js'; // ADICIONADO
 import { authorize } from '../lib/authorizationMiddleware.js'; // ADICIONADO
