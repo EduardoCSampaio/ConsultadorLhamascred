@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'; // Usar tipos do Vercel
-import { supabase } from './supabaseClient';
+import { supabase } from './supabaseClient.js';
 
 // Adaptado para Vercel Functions: retorna uma resposta de erro ou null se sucesso
 export async function protect(req: VercelRequest, res: VercelResponse): Promise<VercelResponse | null> {
