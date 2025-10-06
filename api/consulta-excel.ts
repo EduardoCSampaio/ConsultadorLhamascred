@@ -47,10 +47,14 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
 
+    // Gerar um nome para o lote, usando o nome do arquivo ou um padrão
+    const nomeLote = file.originalFilename || `Lote de Consulta - ${new Date().toLocaleString('pt-BR')}`;
+
     const { data: lote, error: loteError } = await supabase
       .from('lotes_consulta')
       .insert({
         user_id: userId,
+        nome_lote: nomeLote, // <--- CORREÇÃO: Adicionado nome_lote
         nome_arquivo: file.originalFilename || 'arquivo_excel',
         status: 'processando',
         data_inicio: new Date().toISOString(),
@@ -77,10 +81,6 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 }
 
 async function processBatch(loteId: string, documentNumbers: string[], userId: string) {
-  // ... (sua lógica de processamento de lote aqui)
-  // Certifique-se de que esta função também usa as importações relativas corretas
-  // e lida com erros de forma robusta.
-  // Exemplo:
   const results = [];
   for (const doc of documentNumbers) {
     try {
